@@ -1,0 +1,524 @@
+/* 鱼类百科页面样式 */
+.wiki-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#wikiContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.fish-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+.fish-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.fish-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fish-icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.fish-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.2s;
+}
+
+.fish-card:hover .fish-icon img {
+    transform: scale(1.1);
+}
+
+.fish-title h3 {
+    color: #1a73e8;
+    margin: 0 0 5px 0;
+}
+
+.fish-title p {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+}
+
+.fish-info {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.fish-info h4 {
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.fish-params {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.param-item {
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.param-label {
+    color: #666;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.param-value {
+    color: #1a73e8;
+    font-weight: bold;
+}
+
+.fish-description {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* 分类筛选器样式 */
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filter-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filter-label {
+    font-weight: bold;
+    color: #333;
+    min-width: 80px;
+    padding-top: 8px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-option {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: #f0f2f5;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-option:hover {
+    background: #e3f2fd;
+    color: #1a73e8;
+}
+
+.filter-option.active {
+    background: #1a73e8;
+    color: white;
+}
+
+/* 搜索框样式 */
+.search-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+}
+
+.wiki-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.search-box-container {
+    position: relative;
+    width: 300px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+}
+
+.fish-detail-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.detail-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.detail-icon {
+    font-size: 40px;
+    margin-right: 20px;
+}
+
+.detail-title h2 {
+    margin: 0;
+    color: #1a73e8;
+}
+
+.detail-title p {
+    margin: 5px 0 0 0;
+    color: #666;
+}
+
+.detail-section {
+    margin-bottom: 30px;
+}
+
+.detail-section h3 {
+    color: #1a73e8;
+    margin-bottom: 15px;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-item label {
+    color: #666;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.detail-item p {
+    color: #333;
+    margin: 0;
+    font-weight: 500;
+}
+
+.commercial-info,
+.ornamental-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.commercial-info p,
+.ornamental-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.fish-image {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.fish-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.fish-card:hover .fish-image img {
+    transform: scale(1.05);
+}
+
+.detail-image {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .wiki-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .search-box-container {
+        width: 100%;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+    }
+    
+    .filter-options {
+        justify-content: flex-start;
+        overflow-x: auto;
+    }
+} 
+
+.fish-detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.fish-detail-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: block;
+}
+
+.fish-info {
+    margin-top: 20px;
+}
+
+.fish-info p {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.fish-info strong {
+    color: #2c3e50;
+    margin-right: 8px;
+}
+
+.fish-tips {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.fish-tips ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+}
+
+.fish-tips li {
+    margin: 5px 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+.fish-detail-card {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 
+
+.wiki-content {
+    padding: 20px;
+    margin-top: 20px;
+    min-height: 200px;
+}
+
+/* 确保模态框内容样式正确 */
+.modal-body .fish-detail-card {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 修改模态框内的图片样式 */
+.modal-body .fish-detail-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px auto;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 调整模态框内容的布局 */
+.modal-body .fish-detail-card {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* 让详情信息左对齐 */
+.modal-body .fish-info {
+    text-align: left;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* 优化标题样式 */
+.modal-body h2 {
+    color: #1a73e8;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+}
+
+/* 添加描述部分的样式 */
+.fish-description {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.fish-description p {
+    margin: 10px 0 0 0;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* 调整提示部分的样式 */
+.fish-tips {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.fish-tips ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+}
+
+.fish-tips li {
+    margin: 8px 0;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* 优化信息布局 */
+.modal-body .fish-info {
+    text-align: left;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.modal-body .fish-info p {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.modal-body .fish-info strong {
+    color: #1a73e8;
+    margin-right: 10px;
+    min-width: 80px;
+    display: inline-block;
+}

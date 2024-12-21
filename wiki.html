@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鱼类百科 - 智慧鱼塘</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="stylesheet" href="/smart-fish-pond/styles.css">
+    <link rel="stylesheet" href="/smart-fish-pond/wiki-styles.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.svg" alt="logo" class="logo-img">
+                <span>智慧鱼塘</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="ponds.html" class="nav-link">鱼塘管理</a>
+                <a href="wiki.html" class="nav-link active">鱼类百科</a>
+                <a href="profile.html" class="nav-link profile-link">
+                    <span class="profile-text" id="navProfileName">个人中心</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="wiki-container">
+            <div class="wiki-header">
+                <h1>鱼类百科</h1>
+                <div class="search-box-container">
+                    <input type="text" class="search-box" id="searchBox" placeholder="搜索鱼类...">
+                    <i class="search-icon"></i>
+                </div>
+            </div>
+
+            <!-- 搜索和筛选部分 -->
+            <div class="filter-section">
+                <div class="filter-group" id="typeFilter">
+                    <div class="filter-label">类型</div>
+                    <div class="filter-options">
+                        <div class="filter-option active" data-type="all">全部</div>
+                        <div class="filter-option" data-type="commercial">商业养殖</div>
+                        <div class="filter-option" data-type="ornamental">观赏鱼类</div>
+                    </div>
+                </div>
+                <div class="filter-group" id="difficultyFilter">
+                    <div class="filter-label">难度</div>
+                    <div class="filter-options">
+                        <div class="filter-option active" data-difficulty="all">全部</div>
+                        <div class="filter-option" data-difficulty="easy">入门级</div>
+                        <div class="filter-option" data-difficulty="medium">进阶级</div>
+                        <div class="filter-option" data-difficulty="hard">专业级</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 鱼类列表容器 -->
+            <div id="wikiContainer"></div>
+
+            <!-- 鱼类详情模态框 -->
+            <div class="fish-detail-modal" id="fishDetailModal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <div class="modal-body" id="fishDetailContent">
+                        <!-- 详情内容将通过JavaScript动态添加 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/smart-fish-pond/fish-data.js"></script>
+    <script src="/smart-fish-pond/wiki.js"></script>
+</body>
+</html> 

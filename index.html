@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧鱼塘</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="stylesheet" href="/smart-fish-pond/styles.css">
+    <link rel="stylesheet" href="/smart-fish-pond/index-styles.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.svg" alt="logo" class="logo-img">
+                <span>智慧鱼塘</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">首页</a>
+                <a href="ponds.html" class="nav-link" onclick="return checkLogin(event)">鱼塘管理</a>
+                <a href="wiki.html" class="nav-link">鱼类百科</a>
+                <a href="profile.html" class="nav-link profile-link" onclick="return checkLogin(event)">
+                    <span class="profile-text" id="navProfileName">个人中心</span>
+                </a>
+                <a href="#" class="nav-link" id="loginStatus" onclick="handleLoginClick()">登录</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>智能养殖，科学管理</h1>
+            <p>让养鱼更简单，让收益更可观</p>
+            <button onclick="location.href='ponds.html'" class="cta-button">开始使用</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 功能特点展示 -->
+        <section class="features-section">
+            <h2>核心功能</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>实时监测</h3>
+                    <p>24小时监控水质参数，及时预警异常情况</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>数据分析</h3>
+                    <p>智能分析养殖数据，提供科学决策建议</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>远程控制</h3>
+                    <p>随时随地查看和控制鱼塘设备</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>养殖知识</h3>
+                    <p>专业的养殖知识库，新手也能轻松上手</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实时资讯 -->
+        <section class="news-section">
+            <h2>行业资讯</h2>
+            <div class="news-grid" id="newsContainer">
+                <!-- 新闻内容将通过JavaScript动态添加 -->
+            </div>
+        </section>
+
+        <!-- 养殖技巧 -->
+        <section class="tips-section">
+            <h2>养殖技巧</h2>
+            <div class="tips-carousel" id="tipsCarousel">
+                <!-- 技巧内容将通过JavaScript动态添加 -->
+            </div>
+        </section>
+
+        <!-- 市场行情 -->
+        <section class="market-section">
+            <h2>市场行情</h2>
+            <div class="market-table-container">
+                <table class="market-table" id="marketTable">
+                    <thead>
+                        <tr>
+                            <th>鱼类</th>
+                            <th>当前价格</th>
+                            <th>价格趋势</th>
+                            <th>市场供需</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 市场数据将通过JavaScript动态添加 -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 成功案例 -->
+        <section class="cases-section">
+            <h2>成功案例</h2>
+            <div class="cases-grid">
+                <!-- 案例内容将通过JavaScript动态添加 -->
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>智慧鱼塘致力于为养殖户提供智能化解决方案，让养殖更轻松、更科学、更有效益。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：18085677924</p>
+                    <p>邮箱：1340128960@qq.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <a href="wiki.html">鱼类百科</a>
+                    <a href="#">使用教程</a>
+                    <a href="#">技术支持</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 智慧鱼塘. All rights reserved.</p>
+                <p>&copy;本系统由安寻、邓飘飘、张涵、管宝、雷磊团队所制作.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/smart-fish-pond/fish-data.js"></script>
+    <script src="/smart-fish-pond/script.js"></script>
+</body>
+</html> 

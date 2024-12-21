@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 智慧鱼塘</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile-styles.css">
+    <script>
+        // 检查登录状态
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login/login.html';
+        }
+    </script>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.svg" alt="logo" class="logo-img">
+                <span>智慧鱼塘</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="ponds.html" class="nav-link">鱼塘管理</a>
+                <a href="wiki.html" class="nav-link">鱼类百科</a>
+                <a href="profile.html" class="nav-link profile-link active">
+                    <span class="profile-text" id="navProfileName">个人中心</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="images/default-avatar.svg" alt="头像" id="userAvatar">
+                    <div class="avatar-upload">
+                        <label for="avatarInput">更换头像</label>
+                        <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarChange(event)">
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1>欢迎，<span id="username"></span></h1>
+                    <p class="join-date">加入时间：<span id="joinDate"></span></p>
+                </div>
+                <button onclick="logout()" class="logout-btn">退出登录</button>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-section">
+                    <h2>账户信息</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>用户名</label>
+                            <p id="profileUsername"></p>
+                        </div>
+                        <div class="info-item">
+                            <label>邮箱</label>
+                            <p id="profileEmail"></p>
+                        </div>
+                        <div class="info-item">
+                            <label>上次登录</label>
+                            <p id="lastLogin"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2>养殖概况</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalPonds">0</div>
+                            <div class="stat-label">管理鱼塘</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="activePonds">0</div>
+                            <div class="stat-label">正常运行</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="warningPonds">0</div>
+                            <div class="stat-label">异常警告</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h2>最近活动</h2>
+                    <div class="activity-list" id="recentActivities">
+                        <!-- 活动记录将通过JavaScript动态添加 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取用户信息并显示
+        const username = localStorage.getItem('username');
+        document.getElementById('username').textContent = username;
+        document.getElementById('profileUsername').textContent = username;
+        document.getElementById('navProfileName').textContent = username;
+
+        // 模拟用户数据
+        const userData = {
+            email: `${username}@example.com`,
+            joinDate: '2024-01-01',
+            lastLogin: new Date().toLocaleString(),
+            activities: [
+                { type: 'login', time: new Date().toLocaleString(), desc: '登录系统' },
+                { type: 'pond', time: '2024-03-10 14:30:00', desc: '创建新鱼塘：示例鱼塘1' },
+                { type: 'warning', time: '2024-03-09 09:15:00', desc: '鱼塘1水质异常警告' }
+            ]
+        };
+
+        // 显示用户信息
+        document.getElementById('profileEmail').textContent = userData.email;
+        document.getElementById('joinDate').textContent = userData.joinDate;
+        document.getElementById('lastLogin').textContent = userData.lastLogin;
+
+        // 获取并显示鱼塘统计信息
+        const ponds = JSON.parse(localStorage.getItem('ponds')) || [];
+        document.getElementById('totalPonds').textContent = ponds.length;
+        document.getElementById('activePonds').textContent = ponds.filter(p => !p.warnings).length;
+        document.getElementById('warningPonds').textContent = ponds.filter(p => p.warnings).length;
+
+        // 显示最近活动
+        const activitiesList = document.getElementById('recentActivities');
+        activitiesList.innerHTML = userData.activities.map(activity => `
+            <div class="activity-item ${activity.type}">
+                <div class="activity-icon"></div>
+                <div class="activity-content">
+                    <div class="activity-time">${activity.time}</div>
+                    <div class="activity-desc">${activity.desc}</div>
+                </div>
+            </div>
+        `).join('');
+
+        // 处理头像上传
+        function handleAvatarChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('userAvatar').src = e.target.result;
+                    localStorage.setItem('userAvatar', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 加载保存的头像
+        const savedAvatar = localStorage.getItem('userAvatar');
+        if (savedAvatar) {
+            document.getElementById('userAvatar').src = savedAvatar;
+        }
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('username');
+                window.location.href = 'login/login.html';
+            }
+        }
+    </script>
+</body>
+</html> 

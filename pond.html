@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鱼塘监测数据</title>
+    <link rel="stylesheet" href="/smart-fish-pond/styles.css">
+    <link rel="stylesheet" href="/smart-fish-pond/pond-styles.css">
+    <script src="/smart-fish-pond/chart.js"></script>
+    <script src="/smart-fish-pond/standards.js"></script>
+    <script src="/smart-fish-pond/location-data.js"></script>
+    <script src="/smart-fish-pond/fish-data.js"></script>
+    <script src="/smart-fish-pond/pond.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.svg" alt="logo" class="logo-img">
+                <span>智慧鱼塘</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">首页</a>
+                <a href="ponds.html" class="nav-link active">鱼塘管理</a>
+                <a href="wiki.html" class="nav-link">鱼类百科</a>
+                <a href="profile.html" class="nav-link">个人中心</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <button onclick="window.location.href='ponds.html'" class="back-button">返回</button>
+            <h1 id="pondName">鱼塘监测数据</h1>
+            <div class="management-buttons">
+                <button onclick="showLogDialog()" class="log-button">查看日志</button>
+                <button onclick="clearPond()" class="clear-button">清塘</button>
+                <button onclick="confirmDelete()" class="delete-button">删除鱼塘</button>
+            </div>
+        </div>
+        
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>pH值</h3>
+                <canvas id="phChart"></canvas>
+                <div id="phWarning" class="warning"></div>
+            </div>
+            <div class="chart-container">
+                <h3>溶解氧(mg/L)</h3>
+                <canvas id="oxygenChart"></canvas>
+                <div id="oxygenWarning" class="warning"></div>
+            </div>
+            <div class="chart-container">
+                <h3>氨氮浓度(mg/L)</h3>
+                <canvas id="ammoniaChart"></canvas>
+                <div id="ammoniaWarning" class="warning"></div>
+            </div>
+            <div class="chart-container">
+                <h3>水温(℃)</h3>
+                <canvas id="temperatureChart"></canvas>
+                <div id="temperatureWarning" class="warning"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 鱼种选择对话框 -->
+    <div id="fishSelectionDialog" class="dialog">
+        <div class="dialog-content">
+            <h2>选择养殖鱼种</h2>
+            <div class="dialog-form">
+                <div id="fishRecommendation" class="analysis-section active">
+                    <!-- 鱼类推荐将在这里显示 -->
+                </div>
+                <div id="fishSelection" class="form-group">
+                    <label>选择养殖鱼种</label>
+                    <div class="fish-selection-grid">
+                        <!-- 鱼种选择将通过JS动态添加 -->
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-buttons">
+                <button onclick="confirmFishSelection()" id="confirmBtn" class="primary-btn" disabled>确认选择</button>
+                <button onclick="closeFishSelectionDialog()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 日志查看对话框 -->
+    <div id="logDialog" class="dialog">
+        <div class="dialog-content log-dialog-content">
+            <h2>监测日志</h2>
+            <div class="log-filters">
+                <select id="logTypeFilter" onchange="filterLogs()">
+                    <option value="all">所有类型</option>
+                    <option value="warning">异常警告</option>
+                    <option value="adjustment">自动调节</option>
+                    <option value="system">系统操作</option>
+                </select>
+                <select id="logParamFilter" onchange="filterLogs()">
+                    <option value="all">所有参数</option>
+                    <option value="ph">pH值</option>
+                    <option value="oxygen">溶解氧</option>
+                    <option value="ammonia">氨氮</option>
+                    <option value="temperature">水温</option>
+                </select>
+                <button onclick="clearLogs()" class="clear-logs-button">清空日志</button>
+            </div>
+            <div class="log-list" id="logList">
+                <!-- 日志条目将通过JavaScript动态添加 -->
+            </div>
+            <div class="dialog-buttons">
+                <button onclick="exportLogs()">导出日志</button>
+                <button onclick="closeLogDialog()">关闭</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
